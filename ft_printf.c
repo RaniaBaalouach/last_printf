@@ -22,6 +22,8 @@ int	ft_put_format(const char f_spe, va_list arg_pointer)
 		len += ft_putunsigned(va_arg(arg_pointer, unsigned int));
 	else if (f_spe == 'x' || f_spe == 'X')
 		len += ft_putdigit((long)va_arg(arg_pointer, unsigned int), 16, f_spe);
+	else
+		len += ft_putchar(f_spe);
 	return (len);
 }
 
@@ -40,9 +42,9 @@ int	ft_printf(const char *str_format, ...)
 	{
 		if (str_format[i] != '%')
 			len += ft_putchar(str_format[i]);
-		else if (str_format[i] == '%' && str_format[i + 1] == '%')
-			len += ft_putchar(str_format[i++]);
-		else if (str_format[i] == '%' && str_format[i + 1] != '%')
+		// else if (str_format[i] == '%' && str_format[i + 1] == '%')
+		// 	len += ft_putchar(str_format[i++]);
+		else if (str_format[i] == '%' && str_format[i + 1] != '\0')
 			len += ft_put_format(str_format[++i], arg_pointer);
 		i++;
 	}
